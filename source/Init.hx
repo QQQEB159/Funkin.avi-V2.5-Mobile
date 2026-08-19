@@ -27,6 +27,8 @@ class Init extends FlxState
         ClientPrefs.loadPrefs();
 		Highscore.load();
 		GameData.loadShit();
+		
+		MobileData.init();
 
 		AppIcon.changeIcon("newIcon");
 		
