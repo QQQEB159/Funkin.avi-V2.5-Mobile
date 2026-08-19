@@ -48,7 +48,9 @@ class ManIHateYouSoMuchYouMadeMuckneySad extends MusicBeatState
 			FlxG.sound.play(Paths.sound("nuhuh"));
 		});
 
+      #if DISCORD_ALLOWED
       DiscordClient.changePresence('You fucking monster...', 'Muckney is sad now...', 'sadmuckney', 'mouse');
+      #end
 
       // bans you from playing Birthday
       GameData.birthdayLocky = "uninvited";

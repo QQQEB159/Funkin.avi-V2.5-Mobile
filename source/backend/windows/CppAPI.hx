@@ -3,12 +3,12 @@ package backend.windows;
 //taken from Wednesday Infidelity cus lunar allowed it lmao !! (https://twitter.com/lunarcleint/status/1573550933530681344)
 class CppAPI
 {
-	#if cpp
 	public static function obtainRAM():Int
 	{
 		return WindowsData.obtainRAM();
 	}
-
+	
+	#if windows
 	public static function darkMode()
 	{
 		WindowsData.setWindowColorMode(DARK);

@@ -63,7 +63,9 @@ class CreditsState extends MusicBeatState
 
 		path = 'Funkin_avi/credits';
 		
+		#if DISCORD_ALLOWED
 		DiscordClient.changePresence('Credits', 'Look at all these cool people!', 'icon', 'book');
+		#end
 
 		//FlxG.sound.playMusic(Paths.music('aviOST/curtainCall'));
 

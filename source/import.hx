@@ -189,6 +189,8 @@ import gameObjects.ui.notes.Note;
 import gameObjects.ui.notes.StrumNote;
 
 #if sys
-import sys.FileSystem;
-import sys.io.File;
+import sys.*;
+import sys.io.*;
+#elseif js
+import js.html.*;
 #end

@@ -133,7 +133,9 @@ class MusicBeatState extends FlxState
 
 		Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 		Lib.application.window.onClose.add(function() {
+			#if DISCORD_ALLOWED
 			DiscordClient.shutdown();
+			#end
 		});
 	}
 

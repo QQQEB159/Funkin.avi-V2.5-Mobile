@@ -49,7 +49,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 		Lib.application.window.onClose.add(function() {
+			#if DISCORD_ALLOWED
 			DiscordClient.shutdown();
+			#end
 		});
 
 		lime.app.Application.current.window.title += " - {Paused}";
@@ -298,7 +300,9 @@ class PauseSubState extends MusicBeatSubstate
 				case "Exit to menu":
 					Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 					Lib.application.window.onClose.add(function() {
+						#if DISCORD_ALLOWED
 						DiscordClient.shutdown();
+						#end
 					});
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
@@ -341,7 +345,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 		Lib.application.window.onClose.add(function() {
+			#if DISCORD_ALLOWED
 			DiscordClient.shutdown();
+			#end
 		});
 
 		var songName:Array<String> = ['Dont Cross', "Dont-Cross", "dont cross", "dont-cross"];
@@ -461,8 +467,8 @@ class FAVIPauseSubState extends MusicBeatSubstate
 
 	#if desktop
 	public static var getPropertyFromDesktop = Sys.getEnv(Sys.systemName() == "Windows" ? "UserProfile" : "HOME") + "\\Desktop";
-	public static var yourName = Sys.environment()["USERNAME"];
     #end
+    public static var yourName:String = "player";
 
 	var bg:FlxSprite;
 	var bgOverlay:FlxSprite;
@@ -507,14 +513,18 @@ class FAVIPauseSubState extends MusicBeatSubstate
 
 			Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 			Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 			});
 		
 			menuItems = itemStack;
 
 			// Will use your discord username if you're connected while playing lmao
+			#if DISCORD_ALLOWED
 			if (DiscordClient.isInitialized && DiscordClient.discordName != "None")
 				yourName = DiscordClient.discordName;
+			#end
 
 			satanQuotes = [
 				"No, it is forbidden...",
@@ -757,7 +767,9 @@ class FAVIPauseSubState extends MusicBeatSubstate
 							PlayState.seenCutscene = false;
 							Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 							Lib.application.window.onClose.add(function() {
+								#if DISCORD_ALLOWED
 								DiscordClient.shutdown();
+								#end
 							});
 							PlayState.changedDifficulty = false;
 							PlayState.chartingMode = false;
@@ -845,7 +857,9 @@ class FAVIPauseSubState extends MusicBeatSubstate
 				PlayState.instance.opponentVocals.volume = 0;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+					#if DISCORD_ALLOWED
 					DiscordClient.shutdown();
+					#end
 				});
 		
 				var random:Int = FlxG.random.int(1, 11);
@@ -1020,7 +1034,9 @@ class PauseManiaSubstate extends MusicBeatSubstate
 
 			Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 			Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 			});
 		
 			menuItems = itemStack;
@@ -1173,7 +1189,9 @@ class PauseManiaSubstate extends MusicBeatSubstate
 								{
 									Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 									Lib.application.window.onClose.add(function() {
+										#if DISCORD_ALLOWED
 										DiscordClient.shutdown();
+										#end
 									});
 									PlayState.changedDifficulty = false;
 									PlayState.chartingMode = false;
@@ -1216,7 +1234,9 @@ class PauseManiaSubstate extends MusicBeatSubstate
 					PlayState.instance.opponentVocals.volume = 0;
 					Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 					Lib.application.window.onClose.add(function() {
+						#if DISCORD_ALLOWED
 						DiscordClient.shutdown();
+						#end
 					});
 
 					if(noTrans)

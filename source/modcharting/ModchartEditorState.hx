@@ -293,11 +293,13 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         
         Conductor.bpm = PlayState.SONG.bpm;
 
+        #if DISCORD_ALLOWED
         switch (_song.song)
         {
             case "Joygrim" | "Dentophobia" | "Neglection" | "Scrapped": DiscordClient.changePresence("Modchart Editor", "Modcharting a song", "icon");
             default: DiscordClient.changePresence("Modchart Editor", StringTools.replace(_song.song, '-', ' '), "icon");
         }
+        #end
 
         AppIcon.changeIcon("debugicon");
 

@@ -70,7 +70,9 @@ class ControlsSubState extends MusicBeatSubstate
 		options.push([true]);
 		options.push([true, defaultKey]);
 
+		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Controls Options Menu", "Changing settings...", "icon", "gear");
+		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('Funkin_avi/options/background'));
 		bg.setGraphicSize(FlxG.width, FlxG.height);

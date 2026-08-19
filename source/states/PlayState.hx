@@ -321,9 +321,9 @@ class PlayState extends MusicBeatState
 	#if DISCORD_ALLOWED
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
-	public static var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
+	public static var detailsText:String = "";
 
 	//Achievement shit
 	var keysPressed:Array<Int> = [];
@@ -1527,7 +1527,9 @@ class PlayState extends MusicBeatState
 	
 				openSubState(new gameObjects.ui.customEditorUI.Prompt('Are you sure you want to quit?\n\nYou will lose your unsaved progress.', 0, function(){
 					System.exit(0);
+					#if DISCORD_ALLOWED
 					DiscordClient.shutdown();
+					#end
 				}, function(){
 					persistentUpdate = true;
 					persistentDraw = true;
@@ -1910,6 +1912,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
+		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence (with Time Left)
 		if (autoUpdateRPC)
 			switch (SONG.song)
@@ -1917,6 +1920,7 @@ class PlayState extends MusicBeatState
 				case "Joygrim" | "Neglection" | "Scrapped" | "Whimsical Bar Blues": DiscordClient.changePresence("Playing a song", "It's a secret...", "icon", "random", true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
 				default: DiscordClient.changePresence(discordTxt[0], (isDisplayingScore ? scoreTxt.text : discordTxt[1]), CoolUtil.spaceToDash(discordIcon), "random", true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
 			}
+		#end
 	}
 
 	public function setSongTime(time:Float)
@@ -2425,7 +2429,9 @@ class PlayState extends MusicBeatState
 
 			openSubState(new gameObjects.ui.customEditorUI.Prompt('Are you sure you want to quit?\n\nYour data will still save if you do.', 0, function(){
 				System.exit(0);
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 			}, function(){
 				persistentUpdate = true;
 				persistentDraw = true;
@@ -3496,7 +3502,9 @@ class PlayState extends MusicBeatState
 
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+					#if DISCORD_ALLOWED
 					DiscordClient.shutdown();
+					#end
 				});
 
 				if (FreeplayState.freeplayMenuList != 3)
@@ -4342,7 +4350,9 @@ class PlayState extends MusicBeatState
 						Application.current.window.title = windowName;
 
 					case "shakewindow" | "shake window":
+						#if windows
 						CppAPI.shakeWindows(Std.parseInt(triggerInfo[0]), Std.parseInt(triggerInfo[1]));
+						#end
 
 					case "togglewindowtransparency" | "toggle window transparency":
 						var checkToggle:Bool = triggerInfo[0].toLowerCase().trim() == "true";
@@ -4355,10 +4365,12 @@ class PlayState extends MusicBeatState
 					case "togglefakecloseout" | "toggle fake closeout":
 						var checkclosefakeout:Bool = triggerInfo[0].toLowerCase().trim() == "true";
 
+						#if windows
 						if (checkclosefakeout)
 							CppAPI.hideWindows();
 						else
 							CppAPI.restoreWindows();
+						#end
 
 					case "toggle fullscreen" | "togglefullscreen":
 						var checkFullscreen:Bool = triggerInfo[0].toLowerCase().trim() == "true";
@@ -4407,11 +4419,13 @@ class PlayState extends MusicBeatState
 								discordIcon = "volume1";
 						}
 		
+						#if DISCORD_ALLOWED
 						switch (SONG.song)
 						{
 							case "Joygrim" | "Neglection" | "Scrapped": DiscordClient.changePresence("Playing a song", "It's a secret...", "icon", "random", true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
 							default: DiscordClient.changePresence(discordTxt[0], discordTxt[1], CoolUtil.spaceToDash(discordIcon), "random", true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
-						}		
+						}
+						#end
 				}
 
 			case 'Camera Event':	
@@ -4740,7 +4754,9 @@ class PlayState extends MusicBeatState
 
 		Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 		Lib.application.window.onClose.add(function() {
+			#if DISCORD_ALLOWED
 			DiscordClient.shutdown();
+			#end
 		});
 
 		timeBar.visible = false;

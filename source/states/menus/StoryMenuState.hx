@@ -62,7 +62,9 @@ class StoryMenuState extends MusicBeatState
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
 		persistentUpdate = persistentDraw = true;
 
+		#if DISCORD_ALLOWED
 		DiscordClient.changePresence('Story Menu', 'Selecting Episode...');
+		#end
 
 		book = new FlxSprite().loadGraphic(Paths.image('Funkin_avi/storymenu/storyBook' + (GameData.episode1FPLock == "unlocked" ? "-evil" : "")));
 		book.scrollFactor.set(0, 0);

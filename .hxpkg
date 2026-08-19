@@ -21,8 +21,8 @@
             },
             {
                 "name": "flxanimate",
-                "link": "https://github.com/FixedData/flxanimate",
-                "branch": "master"
+                "link": "https://github.com/ShadowMario/flxanimate.git",
+                "branch": "dev"
             },
             {
                 "name": "hscript-iris",

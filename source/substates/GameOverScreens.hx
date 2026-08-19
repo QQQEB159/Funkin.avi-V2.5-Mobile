@@ -89,7 +89,9 @@ class BaseGameOver extends MusicBeatSubstate {
 			PlayState.chartingMode = false;
 			Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 			Lib.application.window.onClose.add(function() {
+			#if DISCORD_ALLOWED
 			DiscordClient.shutdown();
+			#end
 			});
 
 			if (PlayState.isStoryMode)
@@ -454,7 +456,9 @@ class Episode1Death extends MusicBeatSubstate {
 				PlayState.chartingMode = false;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 				});
 
 				if (PlayState.isStoryMode)
@@ -634,7 +638,9 @@ class DelusionalDeath extends MusicBeatSubstate {
 				PlayState.chartingMode = false;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 				});
 
 				if (PlayState.isStoryMode)
@@ -824,7 +830,9 @@ class EpicFailLmao extends MusicBeatSubstate {
 					PlayState.chartingMode = false;
 					Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 					Lib.application.window.onClose.add(function() {
+						#if DISCORD_ALLOWED
 						DiscordClient.shutdown();
+						#end
 					});
 
 					new FlxTimer().start(0.7, function(tmr:FlxTimer)
@@ -1023,7 +1031,9 @@ class EverettBaseDeath extends MusicBeatSubstate {
 				PlayState.chartingMode = false;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 				});
 
 				if (PlayState.isStoryMode)
@@ -1190,7 +1200,9 @@ class WarGameOver extends MusicBeatSubstate {
 				PlayState.chartingMode = false;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 				});
 
 				if (PlayState.isStoryMode)
@@ -1493,7 +1505,9 @@ class MalsquareDeath extends MusicBeatSubstate {
 				PlayState.chartingMode = false;
 				Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 				Lib.application.window.onClose.add(function() {
+				#if DISCORD_ALLOWED
 				DiscordClient.shutdown();
+				#end
 				});
 
 				if (PlayState.isStoryMode)
@@ -1653,7 +1667,9 @@ class MalsquareTrollScreen extends MusicBeatSubstate {
 						PlayState.chartingMode = false;
 						Lib.application.window.onClose.removeAll(); // goes back to normal hopefully
 						Lib.application.window.onClose.add(function() {
+						#if DISCORD_ALLOWED
 						DiscordClient.shutdown();
+						#end
 						});
 		
 						if (PlayState.isStoryMode)
