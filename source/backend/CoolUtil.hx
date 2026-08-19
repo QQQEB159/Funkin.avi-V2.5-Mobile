@@ -199,4 +199,13 @@ class CoolUtil
 
 	inline public static function swapSpaceDash(string:String):String
 		return StringTools.contains(string, '-') ? dashToSpace(string) : spaceToDash(string);
+	
+	public static function showPopUp(message:String, title:String):Void
+	{
+		/* #if android
+		AndroidTools.showAlertDialog(title, message, {name: "OK", func: null}, null);
+		#else */
+		FlxG.stage.window.alert(message, title);
+		//#end
+	}
 }

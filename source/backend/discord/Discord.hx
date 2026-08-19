@@ -1,5 +1,6 @@
 package backend.discord;
 
+#if DISCORD_ALLOWED
 import Sys.sleep;
 import lime.app.Application;
 import hxdiscord_rpc.Discord;
@@ -136,3 +137,4 @@ class DiscordClient
 		return newID;
 	}
 }
+#end

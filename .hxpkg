@@ -1,0 +1,72 @@
+[
+    {
+        "profile": "default",
+        "pkgs": [
+            {
+                "name": "flixel",
+                "link": "https://github.com/kittycathy233/flixel",
+                "branch": "main"
+            },
+            {
+                "name": "flixel-addons",
+                "version": "3.2.2"
+            },
+            {
+                "name": "flixel-ui",
+                "version": "2.5.0"
+            },
+            {
+                "name": "flixel-tools",
+                "version": "1.5.1"
+            },
+            {
+                "name": "flxanimate",
+                "link": "https://github.com/FixedData/flxanimate",
+                "branch": "master"
+            },
+            {
+                "name": "hscript-iris",
+                "version": "1.1.3"
+            },
+            {
+                "name": "linc_luajit",
+                "link": "https://github.com/ShadowEngineTeam/linc_luajit",
+                "branch": "master"
+            },
+            {
+                "name": "hxcpp",
+                "link": "https://github.com/ShadowEngineTeam/hxcpp",
+                "branch": "main"
+            },
+            {
+                "name": "hxvlc",
+                "version": "2.3.0"
+            },
+            {
+                "name": "lime",
+                "link": "https://github.com/QQQEB159/lime-8.2.2",
+                "branch": "main"
+            },
+            {
+                "name": "openfl",
+                "version": "9.3.3"
+            },
+            {
+                "name": "hxdiscord_rpc",
+                "version": "1.2.4"
+            },
+            {
+                "name": "hxcpp-debug-server",
+                "version": "1.2.4"
+            },
+            {
+                "name": "tjson",
+                "version": "1.4.0"
+            },
+            {
+                "name": "away3d",
+                "version": "5.1.0"
+            }
+        ]
+    }
+]
