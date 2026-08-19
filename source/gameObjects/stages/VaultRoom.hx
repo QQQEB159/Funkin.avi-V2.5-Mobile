@@ -230,7 +230,9 @@ class VaultRoom extends BaseStage
 				if (value1.toLowerCase().trim() == "true")
 				{
 					AppIcon.changeIcon("blessIcon");
+					#if windows
 					CppAPI.lightMode();
+					#end
 
 					dad.shader = null;
 					boyfriend.shader = null;
@@ -275,7 +277,9 @@ class VaultRoom extends BaseStage
 
 					
 					AppIcon.changeIcon("newIcon");
+					#if windows
 					CppAPI.darkMode();
+					#end
 				}
 		}
 	}
