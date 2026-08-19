@@ -5651,14 +5651,16 @@ class PlayState extends MusicBeatState
 		if (curStage == "menuSongs") 
 			ClientPrefs.data.middleScroll = backupMiddlescroll;
 		
+		#if windows
 		Transparency.getWindowsbackward();
-		if (!FlxG.fullscreen)
+		#end
+		/*if (!FlxG.fullscreen)
 		{
 			FlxG.fullscreen = false;
 			Lib.application.window.resize(1280, 720);
 			Lib.application.window.x = Std.int((Lib.application.window.display.bounds.width - Lib.application.window.width) * 0.5);
 			Lib.application.window.y = Std.int((Lib.application.window.display.bounds.height - Lib.application.window.height) * 0.5);
-		}
+		}*/
 		backend.NoteTypesConfig.clearNoteTypesData();
 		spawnShadow[0] = spawnShadow[1] = spawnShadow[2] = false;
 		instance = null;
