@@ -77,12 +77,11 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="flixel-tools" version="1.5.1" />
 	<haxelib name="tjson" version="1.4.0" />
-	<haxelib name="lime" version="git" />
 
 	<!--Psych stuff needed-->
 	<haxelib name="linc_luajit" if="LUA_ALLOWED" version="git" />
 	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED" version="1.1.3"/>
-	<haxelib name="hxvlc"   if="VIDEOS_ALLOWED" version="2.3.0" />
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" version="2.3.0" />
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED" version="1.2.4" />
 
 	<!--THIS ONE IS FOR NEGLECTION SO THERE'S PROPER ACTUAL 3D :]]-->
