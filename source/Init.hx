@@ -50,7 +50,7 @@ class Init extends FlxState
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.keys.preventDefaultKeys = [TAB];
 
-        FlxG.sound.soundTray.silent = true; // removes that annoying ass "BEEP" sound when you change the volume
+        //FlxG.sound.soundTray.silent = true; // removes that annoying ass "BEEP" sound when you change the volume
 
         #if DISCORD_ALLOWED
 		DiscordClient.prepare();
