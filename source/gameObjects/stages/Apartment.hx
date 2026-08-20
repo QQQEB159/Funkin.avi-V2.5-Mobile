@@ -7,11 +7,11 @@ import openfl.filters.ShaderFilter;
 class Apartment extends BaseStage
 {
 	var glitchBG:FlxRuntimeShader;
-	public static var chromZoomShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberration, null, 150);
-	public static var redVignette:FlxRuntimeShader = new FlxRuntimeShader(Shaders.redFromAngryBirds, null, 120);
-	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 150);
-	public static var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 120);
-	public static var grayScale:FlxRuntimeShader = new FlxRuntimeShader(Shaders.grayScale, null, 120);
+	public static var chromZoomShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberration, null, 100);
+	public static var redVignette:FlxRuntimeShader = new FlxRuntimeShader(Shaders.redFromAngryBirds, null, 100);
+	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 100);
+	public static var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 100);
+	public static var grayScale:FlxRuntimeShader = new FlxRuntimeShader(Shaders.grayScale, null, 100);
 
 	//OLD CYCLED SINS
 	var bg1:FlxSprite;
@@ -74,7 +74,7 @@ class Apartment extends BaseStage
 		game.camGame.pixelPerfectRender = true; // positions of the objects rendered on this camera are rounded
 
 		//Phase 2 shaders
-		glitchBG = new FlxRuntimeShader(Shaders.vignetteGlitch, null, 130);
+		glitchBG = new FlxRuntimeShader(Shaders.vignetteGlitch, null, 100);
 
 		if (!ClientPrefs.data.lowQuality && PlayState.SONG.song != "Cycled Sins Legacy"){
 			void = new FlxSprite(0, 50).loadGraphic(Paths.image(PlayState.pathway + 'void'));

@@ -11,9 +11,7 @@ enum abstract Shaders(String) from String to String
 	var malfunctionBGEffect = 
 	"
 	 #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
+    
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
@@ -27,9 +25,12 @@ enum abstract Shaders(String) from String to String
 
 	void mainImage()
 {
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
+    
     float POWER = 0.01; // How much the effect can spread horizontally
     float VERTICAL_SPREAD = 10.0; // How vertically is the sin wave spread
-    float ANIM_SPEED = 0.1f; // Animation speed
+    float ANIM_SPEED = 0.1; // Animation speed
     
 	vec2 uv = fragCoord.xy / iResolution.xy;
     float y = (uv.y + iTime * ANIM_SPEED) * VERTICAL_SPREAD;
@@ -51,10 +52,9 @@ enum abstract Shaders(String) from String to String
 	";
 	var freakyGlitch =
 	"
-	  #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
+	 #pragma header
+    
+    vec2 iResolution;
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
@@ -161,7 +161,9 @@ vec3 distort(sampler2D sampler, vec2 uv, float edgeSize)
 
 void mainImage()
 {
-	vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 uv = openfl_TextureCoordv.xy;
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    iResolution = openfl_TextureSize;
     Amount = uv.x; // Just erase this line if you want to use the control at the top
     wow = clamp(mod(noise(iTime + uv.y), 1.0), 0.0, 1.0) * 2.0 - 1.0;    
     vec3 finalColor;
@@ -178,17 +180,17 @@ void mainImage()
      */
     var aberration =
     "
-    #pragma header
+   #pragma header
     /*
     https://www.shadertoy.com/view/wtt3z2
     */
 
-    uniform float aberration = 0.0;
-    uniform float effectTime = 0.0;
+    uniform float aberration;
+    uniform float effectTime;
 
     vec3 tex2D(sampler2D _tex,vec2 _p)
     {
-        vec3 col=texture(_tex,_p).xyz;
+        vec3 col=texture2D(_tex,_p).xyz;
         if(.5<abs(_p.x-.5)){
             col=vec3(.1);
         }
@@ -224,9 +226,9 @@ void mainImage()
         vec2 trueAberration = aberration * pow((uv_prj.st - 0.5), vec2(3.0, 3.0));
         // vec4 texColor = tex2D(bitmap, uv_prj.st);
         gl_FragColor = vec4(
-            texture(bitmap, uv_prj.st + trueAberration).r, 
-            texture(bitmap, uv_prj.st).g, 
-            texture(bitmap, uv_prj.st - trueAberration).b, 
+            texture2D(bitmap, uv_prj.st + trueAberration).r, 
+            texture2D(bitmap, uv_prj.st).g, 
+            texture2D(bitmap, uv_prj.st - trueAberration).b, 
             1.0
         );
     }
@@ -239,14 +241,15 @@ void mainImage()
      */
     var grayScale = 
     "
-    #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
+   #pragma header
+    
     #define fragColor gl_FragColor
     #define mainImage main
 
         void mainImage() {
+            vec2 uv = openfl_TextureCoordv.xy;
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
             vec4 color = texture2D(bitmap, openfl_TextureCoordv);
             float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
             fragColor = vec4(vec3(gray), color.a);
@@ -262,14 +265,13 @@ void mainImage()
      */
     var vignetteGlitch =
     "
-    // https://www.shadertoy.com/view/XtyXzW
+   // https://www.shadertoy.com/view/XtyXzW
 
     #pragma header
-    #extension GL_EXT_gpu_shader4 : enable
 
-    uniform float time = 0.0;
-    uniform float prob = 0.0;
-    uniform float vignetteIntensity = 0.75;
+    uniform float time;
+    uniform float prob;
+    uniform float vignetteIntensity;
 
     float _round(float n) {
         return floor(n + .5);
@@ -281,7 +283,7 @@ void mainImage()
 
     vec3 tex2D(sampler2D _tex,vec2 _p)
     {
-        vec3 col=texture(_tex,_p).xyz;
+        vec3 col=texture2D(_tex,_p).xyz;
         if(.5<abs(_p.x-.5)){
             col=vec3(.1);
         }
@@ -328,7 +330,7 @@ void mainImage()
     }
 
     float shouldApply(GlitchSeed seed) {
-        return round(
+        return _round(
             mix(
                 mix(rand(seed.seed), 1., seed.prob - .5),
                 0.,
@@ -338,7 +340,7 @@ void mainImage()
     }
 
     // gamma again 
-    const float GAMMA = 1;
+    const float GAMMA = 1.0;
 
     vec3 gamma(vec3 color, float g) {
         return pow(color, vec3(g));
@@ -405,7 +407,7 @@ void mainImage()
         if (shouldApply(seedA) == 1.) {
             GlitchSeed seedB = glitchSeed(glitchCoord(p, vec2(grainSize)), 5.);
             vec2 offset = vec2(rand(seedB.seed), rand(seedB.seed + .1));
-            offset = round(offset * 2. - 1.);
+            offset = _round(offset * 2. - 1.);
             offset *= contrast;
             p += offset;
         }
@@ -511,7 +513,7 @@ void mainImage()
     uniform bool vignetteMoving;
    // uniform sampler2D noiseTex;
     uniform float glitchModifier;
-    vec2 iResolution = openfl_TextureSize;
+    
 
     float onOff(float a, float b, float c)
     {
@@ -531,7 +533,7 @@ void mainImage()
       	vec2 look = uv;
         if(distortionOn){
         	float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
-        	look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2);
+        	look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2.0);
         	float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) +
         										 (0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
         	look.y = mod(look.y + vShift*glitchModifier, 1.);
@@ -587,6 +589,7 @@ void mainImage()
     }
     void main()
     {
+    	vec2 iResolution = openfl_TextureSize;
     	vec2 uv = openfl_TextureCoordv;
       vec2 curUV = screenDistort(uv);
     	uv = scandistort(curUV);
@@ -614,8 +617,8 @@ void mainImage()
 
       gl_FragColor = mix(video,vec4(noise(uv * 75.)),.05);
 
-      if(curUV.x<0 || curUV.x>1 || curUV.y<0 || curUV.y>1){
-        gl_FragColor = vec4(0,0,0,0);
+      if(curUV.x<0.0 || curUV.x>1.0 || curUV.y<0.0 || curUV.y>1.0){
+        gl_FragColor = vec4(0.0,0.0,0.0,0.0);
       }
 
     }
@@ -701,8 +704,8 @@ void mainImage()
 		 
 		// I am hardcoding the constants like a jerk
 			
-		uniform float bluramount  = 1.0;
-		uniform float center      = 1.0;
+		uniform float bluramount;
+		uniform float center;
 		const float stepSize    = 0.004;
 		const float steps       = 3.0;
 		 
@@ -754,9 +757,7 @@ void mainImage()
     var bloom =
     "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
+    
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
@@ -770,18 +771,20 @@ void mainImage()
 
     //BLOOM SHADER BY BBPANZU
 
-    const float amount = 1;
+    const float amount = 1.0;
 
     // GAUSSIAN BLUR SETTINGS
     float dim = 1.8;
     float Directions = 20.0;
     float Quality = 20.0; 
     float Size = 20.0; 
-    vec2 Radius = Size/openfl_TextureSize.xy;
 
     void mainImage()
     { 
-        vec2 uv = openfl_TextureCoordv.xy ;
+        vec2 uv = openfl_TextureCoordv.xy;
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
+    vec2 Radius = Size/openfl_TextureSize.xy;
 
     float Pi = 6.28318530718; // Pi*2
         
@@ -808,9 +811,7 @@ void mainImage()
     @:noCompletion var bloom_alt = 
     "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
+    
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
@@ -824,6 +825,8 @@ void mainImage()
 
    void mainImage()
 {
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
     float Pi = 6.28318530718;
     
     //Gaussian blur settings
@@ -873,9 +876,7 @@ void mainImage()
     var filter1990 =
     "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+    
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -929,6 +930,8 @@ void mainImage()
 	}
 	
 	void mainImage(  ) {
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 	  vec2 uv = fragCoord.xy / VHSRES;
 	  float time = iTime;
 	
@@ -991,9 +994,7 @@ void mainImage()
 	
 	uniform float iTime;
 	
-	vec2 iResolution = openfl_TextureSize;
-	
-	uniform float amount = 0.5;
+	uniform float amount;
 	
 	const float pi = radians(180.);
 	const int samples = 20;
@@ -1043,6 +1044,7 @@ void mainImage()
 	}
 	
 	void main() {
+	    vec2 iResolution = openfl_TextureSize;
 	    vec2 fragCoord = openfl_TextureCoordv * iResolution;
 	
 	    vec2 ps = vec2(1.0) / iResolution.xy;
@@ -1059,7 +1061,7 @@ void mainImage()
     "
 	#pragma header
 
-	uniform float time = 0.0;
+	uniform float time;
 	
 	vec2 ShakeUV(vec2 uv, float time) {
 	    uv.x += 0.002 * sin(time*3.141) * sin(time*14.14);
@@ -1079,7 +1081,7 @@ void mainImage()
     "
     	#pragma header
 
-	float zoom = 1;
+	float zoom = 1.0;
 	void main()
 	{
 	    vec2 uv = openfl_TextureCoordv;
@@ -1110,9 +1112,7 @@ void mainImage()
     var dimScreen =
     "
 	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -1140,7 +1140,9 @@ void mainImage()
 	
 	void mainImage(  )
 	{
-		vec2 uv = fragCoord.xy / iResolution.xy;
+	    vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 	    
 	    float t = tape(uv) * tape(-uv);
 		vec3 noise = vec3(t) * 1.;
@@ -1164,10 +1166,10 @@ void mainImage()
     "
 	#pragma header
 
-	uniform float desaturationAmount = 0.0;
-	uniform float distortionTime = 0.0;
-	uniform float amplitude = -0.1;
-	uniform float frequency = 8.0;
+	uniform float desaturationAmount;
+	uniform float distortionTime;
+	uniform float amplitude;
+	uniform float frequency;
 	
 	void main() {
 	    vec4 desatTexture = texture2D(bitmap, vec2(openfl_TextureCoordv.x + sin((openfl_TextureCoordv.y * frequency) + distortionTime) * amplitude, openfl_TextureCoordv.y));
@@ -1178,9 +1180,7 @@ void mainImage()
     var tvStatic =
     "
 	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -1273,8 +1273,9 @@ void mainImage()
 	
 	void mainImage()
 	{
-	
-		vec2 uv =  fragCoord.xy/iResolution.xy;
+	    vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		
 		float jerkOffset = (1.0-step(snoise(vec2(iTime*1.3,5.0)),0.8))*0.05;
 		
@@ -1383,8 +1384,8 @@ void mainImage()
 	#pragma header
 
 	#define PI 3.14159265
-	uniform float time = 0.0;
-	uniform float vignetteIntensity = 0.75;
+	uniform float time;
+	uniform float vignetteIntensity;
 	
 	void main() {
 	    float amount = (0.25 * sin(time * PI) + vignetteIntensity);
@@ -1397,7 +1398,7 @@ void mainImage()
 
     var vhsFilter =
     "
-	// Based on a shader by FMS_Cat.
+    // Based on a shader by FMS_Cat.
 	// https://www.shadertoy.com/view/XtBXDt
 	// Modified to support OpenFL.
 	
@@ -1408,7 +1409,7 @@ void mainImage()
 	
 	vec3 tex2D(sampler2D _tex,vec2 _p)
 	{
-	    vec3 col=texture(_tex,_p).xyz;
+	    vec3 col=texture2D(_tex,_p).xyz;
 	    if(.5<abs(_p.x-.5)){
 	        col=vec3(.1);
 	    }
@@ -1487,11 +1488,9 @@ void mainImage()
 
     var delusionalShift =
     "
-	//definitions and stuff
+    //definitions and stuff
 	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -1584,7 +1583,9 @@ void mainImage()
 	
 	void mainImage()
 	{
-		vec2 uv = fragCoord.xy / iResolution.xy;    
+		vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;  
 	    float time = iTime * 2.0;
 	    
 	    // Create large, incidental noise waves
@@ -1614,11 +1615,9 @@ void mainImage()
 
 	var unregisteredHyperCam2Quality =
 	"
-	//SHADERTOY PORT FIX (thx bb)
+    //SHADERTOY PORT FIX (thx bb)
 	#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define texture flixel_texture2D
@@ -1626,9 +1625,12 @@ void mainImage()
 	#define mainImage main
 	//SHADERTOY PORT FIX
 
-	uniform float size = 5.0;
+	uniform float size;
 
 	void mainImage() {
+		vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		vec2 coordinates = fragCoord.xy/iResolution.xy;
 		vec2 pixelSize = vec2(size/iResolution.x, size/iResolution.y);
 		vec2 position = floor(coordinates/pixelSize)*pixelSize;
@@ -1638,10 +1640,9 @@ void mainImage()
 	";
 
 	var heatWave =
-	"#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	"
+	#pragma header
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define iChannel1 bitmap
@@ -1656,7 +1657,9 @@ void mainImage()
 	void mainImage()
 	{
 		// Normalized pixel coordinates (from 0 to 1)
-		vec2 uv = fragCoord/iResolution.xy;
+	   vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 	
 		// Time varying pixel color
 		float jacked_time = 5.5*iTime;
@@ -1668,10 +1671,9 @@ void mainImage()
 	";
 
 	var blessBlur =
-	"#pragma header
-	vec2 uv = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	"
+	#pragma header
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define texture flixel_texture2D
@@ -1682,6 +1684,10 @@ void mainImage()
 
 	void mainImage()
 	{
+		vec2 uv = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
+		
 		float Pi = 6.28318530718; // Pi*2
 		
 		// GAUSSIAN BLUR SETTINGS {{{
@@ -1693,7 +1699,6 @@ void mainImage()
 		vec2 Radius = Size/iResolution.xy;
 		
 		// Normalized pixel coordinates (from 0 to 1)
-		vec2 uv = fragCoord/iResolution.xy;
 		// Pixel colour
 		vec4 Color = texture(iChannel0, uv);
 		
@@ -1709,13 +1714,13 @@ void mainImage()
 		// Output to screen
 		Color /= Quality * Directions - 15.0;
 		gl_FragColor =  Color;
-	}";
+	}
+	";
 
 	var blessLightsShit =
-	"#pragma header
-	vec2 realUV = openfl_TextureCoordv.xy;
-	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	vec2 iResolution = openfl_TextureSize;
+	"
+	#pragma header
+	
 	uniform float iTime;
 	#define iChannel0 bitmap
 	#define texture flixel_texture2D
@@ -1845,7 +1850,9 @@ void mainImage()
 
 	void mainImage()
 	{
-		vec2 realUV = fragCoord.xy / iResolution.xy;
+		vec2 realUV = openfl_TextureCoordv.xy;
+	vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	vec2 iResolution = openfl_TextureSize;
 		vec2 uv =  fragCoord.xy/iResolution.x;
 		
 		vec4 tex = texture(iChannel0, realUV);
@@ -1890,5 +1897,6 @@ void mainImage()
 		
 		
 		gl_FragColor = tex;
-	}";
+	}
+	";
 }

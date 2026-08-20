@@ -51,7 +51,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		super.create();
 
-		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 140);
+		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 100);
 		FlxG.camera.setFilters(
 			[
 				new openfl.filters.ShaderFilter(defaultShader2)

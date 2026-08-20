@@ -24,13 +24,13 @@ class ForbiddenRealm extends BaseStage
 	var heartTween:FlxTween;
 	var malfunctionTxt:FlxTween;
 
-	public static var malFreakG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.freakyGlitch, null, 120);
-	public static var malBG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.malfunctionBGEffect, null, 120);
+	public static var malFreakG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.freakyGlitch, null, 100);
+	public static var malBG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.malfunctionBGEffect, null, 100);
 
 	//SHADERS WOOOOOOOOOOOOOOOOO
-	public static var chromZoomShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberration, null, 150);
-	public static var chromNormalShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberrationDefault, null, 150);
-	public static var blurShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tiltShift, null, 120);
+	public static var chromZoomShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberration, null, 100);
+	public static var chromNormalShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.aberrationDefault, null, 100);
+	public static var blurShader:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tiltShift, null, 100);
 
 	public static var blurEffect:Float = 0.0;
 	public var shaderAnim:Float = 0;
@@ -43,8 +43,8 @@ class ForbiddenRealm extends BaseStage
 
 		accessPath = PlayState.SONG.song == 'Malfunction Legacy' ? 'PixelMouse' : 'malfunctionBG-NEW';
 		
-		staticBG = new FlxRuntimeShader(Shaders.tvStatic, null, 120);
-		glitchBG = new FlxRuntimeShader(Shaders.vignetteGlitch, null, 130);
+		staticBG = new FlxRuntimeShader(Shaders.tvStatic, null, 100);
+		glitchBG = new FlxRuntimeShader(Shaders.vignetteGlitch, null, 100);
 
 		fuckingsquares = new FlxSprite(-750, -850);
 		fuckingsquares.loadGraphic(Paths.image(PlayState.pathway + accessPath));

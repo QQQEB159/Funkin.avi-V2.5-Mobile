@@ -7,7 +7,7 @@ import shaders.OutlineEffect;
 
 class TrueGrinsOfSins extends BaseStage
 {
-	var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 120);
+	var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 100);
 
 	var outline:OutlineEffect = new OutlineEffect();
 	var noteOutline:OutlineEffect = new OutlineEffect();

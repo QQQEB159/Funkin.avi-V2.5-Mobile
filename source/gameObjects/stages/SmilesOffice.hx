@@ -6,7 +6,7 @@ import openfl.filters.ShaderFilter;
 
 class SmilesOffice extends BaseStage
 {
-	public static var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 120);
+	public static var staticEffect:FlxRuntimeShader = new FlxRuntimeShader(Shaders.tvStatic, null, 100);
 
 	public var shaderAnim:Float = 0;
 	

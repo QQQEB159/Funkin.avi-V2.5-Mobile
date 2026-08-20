@@ -374,7 +374,7 @@ class LegacyMenuState extends MusicBeatState
 
 		super.create();
 
-		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 140);
+		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 100);
 		if(ClientPrefs.data.shaders)
 		{
 			FlxG.camera.setFilters(

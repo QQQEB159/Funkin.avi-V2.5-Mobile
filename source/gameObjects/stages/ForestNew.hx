@@ -6,7 +6,7 @@ import openfl.filters.ShaderFilter;
 
 class ForestNew extends BaseStage
 {
-	var wobblyBG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.acidTrip, null, 120);
+	var wobblyBG:FlxRuntimeShader = new FlxRuntimeShader(Shaders.acidTrip, null, 100);
 	var treesFront:FlxSprite;
 	var goofyStreet:FlxSprite;
 	var treesBack:FlxSprite;
@@ -14,9 +14,9 @@ class ForestNew extends BaseStage
 	var goofyBG:FlxSprite;
 
 	public var shaderAnim:Float = 0;
-	public static var redVignette:FlxRuntimeShader = new FlxRuntimeShader(Shaders.redFromAngryBirds, null, 120);
-	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 150);
-	public static var monitorFilter:FlxRuntimeShader = new FlxRuntimeShader(Shaders.monitorFilter, null, 140);
+	public static var redVignette:FlxRuntimeShader = new FlxRuntimeShader(Shaders.redFromAngryBirds, null, 100);
+	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 100);
+	public static var monitorFilter:FlxRuntimeShader = new FlxRuntimeShader(Shaders.monitorFilter, null, 100);
 
 	override function create()
 	{

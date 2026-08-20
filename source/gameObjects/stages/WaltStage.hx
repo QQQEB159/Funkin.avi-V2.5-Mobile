@@ -53,8 +53,8 @@ class WaltStage extends BaseStage
 
 	public var shaderAnim:Float = 0;
 
-	public static var waltStatic:FlxRuntimeShader = new FlxRuntimeShader(Shaders.vhsFilter, null, 130);
-	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 150);
+	public static var waltStatic:FlxRuntimeShader = new FlxRuntimeShader(Shaders.vhsFilter, null, 100);
+	public static var dramaticCamMovement:FlxRuntimeShader = new FlxRuntimeShader(Shaders.cameraMovement, null, 100);
 
 	//MERCY
 	var pissOfGlory:FlxSprite;

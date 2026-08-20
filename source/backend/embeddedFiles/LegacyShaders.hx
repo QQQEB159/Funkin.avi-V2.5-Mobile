@@ -105,7 +105,7 @@ enum abstract LegacyShaders(String) from String to String
 		}";
 
     var vcrDistortion = "
-   #pragma header
+  #pragma header
 
     uniform float iTime;
     uniform bool vignetteOn;
@@ -135,7 +135,7 @@ enum abstract LegacyShaders(String) from String to String
       	vec2 look = uv;
         if(distortionOn){
         	float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
-        	look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2);
+        	look.x = look.x + (sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window)*(glitchModifier*2.0);
         	float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) +
         										 (0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
         	look.y = mod(look.y + vShift*glitchModifier, 1.);
@@ -218,14 +218,15 @@ enum abstract LegacyShaders(String) from String to String
 
       gl_FragColor = mix(video,vec4(noise(uv * 75.)),.05);
 
-      if(curUV.x<0 || curUV.x>1 || curUV.y<0 || curUV.y>1){
-        gl_FragColor = vec4(0,0,0,0);
+      if(curUV.x<0.0 || curUV.x>1.0 || curUV.y<0.0 || curUV.y>1.0){
+        gl_FragColor = vec4(0.0,0.0,0.0,0.0);
       }
 
-    }";
+    }
+  ";
 
     var tiltshift = "
-    #pragma header
+   #pragma header
 
 		// Modified version of a tilt shift shader from Martin Jonasson (http://grapefrukt.com/)
 		// Read http://notes.underscorediscovery.com/ for context on shaders and this file
@@ -263,8 +264,8 @@ enum abstract LegacyShaders(String) from String to String
 		 
 		// I am hardcoding the constants like a jerk
 			
-		uniform float bluramount  = 1.0;
-		uniform float center      = 1.0;
+		uniform float bluramount;
+		uniform float center;
 		const float stepSize    = 0.004;
 		const float steps       = 3.0;
 		 
@@ -302,7 +303,8 @@ enum abstract LegacyShaders(String) from String to String
 		 
 			// return the final blurred color
 			gl_FragColor = blurred;
-		}";
+		}
+   ";
 
     var greyscale = "
     #pragma header

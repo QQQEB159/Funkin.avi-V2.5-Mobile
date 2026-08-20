@@ -199,7 +199,7 @@ class TitleState extends MusicBeatState
 		Application.current.window.title = 'Funkin.avi - ${windowArray[FlxG.random.int(0, windowArray.length-1)]}';
 		AppIcon.changeIcon("newIcon");
 
-		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 140);
+		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 100);
 		if(ClientPrefs.data.shaders)
 			{
 				FlxG.camera.setFilters(
@@ -688,7 +688,7 @@ class TitleState extends MusicBeatState
 							float ry = (py - qy) * lum + uv.y;
 							vec4 color = flixel_texture2D(bitmap, vec2(rx, ry));
 							gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
-						}", null, 120);
+						}", null, 100);
 						invert.setFloat('binaryIntensity', 1000);
 						FlxG.game.setFilters([new ShaderFilter(invert)]);
 						FlxTween.num(0, 1, .5, null, num -> invert.setFloat('negativity', num));
