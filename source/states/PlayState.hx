@@ -4357,10 +4357,12 @@ class PlayState extends MusicBeatState
 					case "togglewindowtransparency" | "toggle window transparency":
 						var checkToggle:Bool = triggerInfo[0].toLowerCase().trim() == "true";
 
+						#if windows
 						if(checkToggle)
 							Transparency.getWindowsTransparent();
 						else
 							Transparency.getWindowsbackward();
+						#end
 
 					case "togglefakecloseout" | "toggle fake closeout":
 						var checkclosefakeout:Bool = triggerInfo[0].toLowerCase().trim() == "true";
