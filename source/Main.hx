@@ -89,6 +89,10 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+		#if mobile
+		mobile.backend.Storage.copyNecessaryFiles();
+		#end
+		
 		ClientPrefs.loadDefaultKeys();
 		Controls.instance = new Controls();
 

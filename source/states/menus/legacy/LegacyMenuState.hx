@@ -374,7 +374,7 @@ class LegacyMenuState extends MusicBeatState
 		scratchStuff.cameras = [camFilter];
 		grain.cameras = [camFilter];
 
-		keyboard = new FlxSprite(1100, 20);
+		keyboard = new FlxSprite(1060, 20);
     	keyboard.loadGraphic(Paths.image('keyboard', 'mobile'));
     	keyboard.scale.set(0.4, 0.4);
     	keyboard.updateHitbox();
