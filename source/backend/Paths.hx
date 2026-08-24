@@ -192,9 +192,6 @@ class Paths
 		
 		cacheMisses++;
 		var resolvedPath:String;
-
-		if (library == "mobile")
-			resolvedPath = getSharedPath('mobile/$file');
 		
 		if (library != null) {
 			resolvedPath = getLibraryPath(file, library);
@@ -213,6 +210,9 @@ class Paths
 		} else {
 			resolvedPath = getSharedPath(file);
 		}
+		
+		if (library == "mobile")
+			resolvedPath = getSharedPath('mobile/$file');
 		
 		pathCache.set(cacheKey, resolvedPath);
 		return resolvedPath;
