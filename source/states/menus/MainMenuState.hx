@@ -336,7 +336,6 @@ class MainMenuState extends MusicBeatState
     	}
     	else if (curCode == code[6])
     	{
-    		FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
     		if (!selectedSomethin && GameData.birthdayLocky != "uninvited") coolMenuEvents(5);
     		curCode = '';
     	}
