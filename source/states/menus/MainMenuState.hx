@@ -360,7 +360,7 @@ class MainMenuState extends MusicBeatState
 			}
 		});
 
-		if (!sys.FileSystem.exists('assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
+		if (!sys.FileSystem.exists(#if mobile Sys.getCwd() + #end 'assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
 			coolMenuEvents(2);
 
 		if (FlxG.keys.justPressed.R)

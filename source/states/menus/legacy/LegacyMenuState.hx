@@ -507,7 +507,7 @@ class LegacyMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!sys.FileSystem.exists('assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
+		if (!sys.FileSystem.exists(#if mobile Sys.getCwd() + #end 'assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
 		{
 			selectedSomethin = true;
 			new FlxTimer().start(0.4, function(tmr:FlxTimer)
