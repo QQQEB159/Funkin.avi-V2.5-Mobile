@@ -4383,10 +4383,13 @@ class PlayState extends MusicBeatState
 							FlxG.fullscreen = false;
 
 					case "windowposition" | "window position" | "windowpos" | "window pos":
-						FlxTween.tween(this, {winX: Std.int((Lib.application.window.display.bounds.width - Lib.application.window.width) * 0.5) + Std.parseInt(triggerInfo[0]), winY: Std.int((Lib.application.window.display.bounds.height - Lib.application.window.height) * 0.5) + Std.parseInt(triggerInfo[1])}, Std.parseFloat(triggerInfo[2]), //Time
+						if (!FlxG.fullscreen && !FlxG.stage.window.maximized)
 						{
-							ease: returnTweenEase(triggerInfo[3].toLowerCase().trim()) //Ease
-						});
+							FlxTween.tween(this, {winX: Std.int((Lib.application.window.display.bounds.width - Lib.application.window.width) * 0.5) + Std.parseInt(triggerInfo[0]), winY: Std.int((Lib.application.window.display.bounds.height - Lib.application.window.height) * 0.5) + Std.parseInt(triggerInfo[1])}, Std.parseFloat(triggerInfo[2]), //Time
+							{
+								ease: returnTweenEase(triggerInfo[3].toLowerCase().trim()) //Ease
+							});
+						}
 
 					case "discord" | "richpresence" | "rich presence" | "activity":
 						if (triggerInfo[0].trim() != null)
@@ -5656,7 +5659,7 @@ class PlayState extends MusicBeatState
 		#if windows
 		Transparency.getWindowsbackward();
 		#end
-		/*if (!FlxG.fullscreen)
+		/*if (!FlxG.fullscreen && !FlxG.stage.window.maximized)
 		{
 			FlxG.fullscreen = false;
 			Lib.application.window.resize(1280, 720);

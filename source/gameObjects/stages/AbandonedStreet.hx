@@ -20,6 +20,7 @@ class AbandonedStreet extends BaseStage
 
 	//MICKEY STAGE ASSETS
 	public static var colorsOrSmthElse:FlxSprite;
+	public static var bg:FlxSprite;
 	public static var floor:FlxSprite;
 	public static var stageCurtains:FlxSprite;
 	public static var stageFront:FlxSprite;
@@ -91,7 +92,7 @@ class AbandonedStreet extends BaseStage
 	];
 	var fuckingManage:Int = 0;
 
-
+	var tree:FlxSprite;
 	override function create()
 	{
 		pathWay = "abandonedStreet";
@@ -109,10 +110,10 @@ class AbandonedStreet extends BaseStage
 		colorsOrSmthElse.scrollFactor.set(0.9, 0.9);
 		colorsOrSmthElse.active = false;
 		add(colorsOrSmthElse);
-
+		
 		if (PlayState.SONG.song == 'Delusional')
 		{	
-			fakeLightOfHope = new FlxSprite(-990, 1600).loadGraphic(Paths.image(PlayState.pathway + 'falseHope'));
+			fakeLightOfHope = new FlxSprite(-990, 1600).loadGraphic(Paths.image(PlayState.pathway + 'delusional/falseHope'));
 			fakeLightOfHope.setGraphicSize(Std.int(fakeLightOfHope.width * 4));
 			fakeLightOfHope.updateHitbox();
 			fakeLightOfHope.antialiasing = ClientPrefs.data.antialiasing;
@@ -122,6 +123,11 @@ class AbandonedStreet extends BaseStage
 			add(fakeLightOfHope);
 		}
 
+		// Heh some stuff port from Nightmare Vision to Psych :fire: --(MalyPlus)
+		// also holy long line
+		bg = new FlxSprite(-160,-210).loadGraphic(Paths.image(PlayState.pathway+'street-bg'));
+		add(bg);
+		
 		if (!ClientPrefs.data.lowQuality && PlayState.SONG.song != "Isolated")
 		{
 			fireThing = new FlxSprite(0, -80);
@@ -139,18 +145,21 @@ class AbandonedStreet extends BaseStage
 			mickeySpirit.alpha = 0.0001;
 			add(mickeySpirit);
 		}
-
-		floor = new FlxSprite(-20, 200).loadGraphic(Paths.image(PlayState.pathway + 'street'));
-		floor.antialiasing = ClientPrefs.data.antialiasing;
-		floor.scale.set(2.8, 2.5);
-		floor.scrollFactor.set(1, 1);
-		floor.active = false;
+		
+		floor = new FlxSprite(-160, -210).loadGraphic(Paths.image(PlayState.pathway + 'street'));
 		add(floor);	
+
+		for (item in [bg,floor]){
+			item.antialiasing = ClientPrefs.data.antialiasing;
+			item.scale.set(2.3, 2.3);
+			item.scrollFactor.set(1, 1);
+			item.active = false;
+		}
 		
 		if (!ClientPrefs.data.lowQuality && PlayState.SONG.song == "Delusional" || PlayState.SONG.song == 'delusional-anniversary')
 		{
 			lightning = new FlxSprite(-25, -175);
-			lightning.frames = Paths.getSparrowAtlas(PlayState.pathway + "lightning");
+			lightning.frames = Paths.getSparrowAtlas(PlayState.pathway + "delusional/lightning");
 			lightning.antialiasing = ClientPrefs.data.antialiasing;
 			lightning.animation.addByPrefix('boom', 'lightning1', 12);
 			lightning.animation.addByPrefix('boom2', 'lightning2', 12);
@@ -167,7 +176,7 @@ class AbandonedStreet extends BaseStage
 			add(memoryMickey);
 
 			// Bedroom Grah :fire: - MalyPlus
-			minnieBackground = new FlxSprite(-20, 200).loadGraphic(Paths.image(PlayState.pathway + 'background'));
+			minnieBackground = new FlxSprite(-20, 200).loadGraphic(Paths.image(PlayState.pathway + 'delusional/background'));
 			minnieBackground.scale.set(2,2);
 			minnieBackground.scrollFactor.set(1, 1);
 			minnieBackground.antialiasing = ClientPrefs.data.antialiasing;
@@ -177,7 +186,7 @@ class AbandonedStreet extends BaseStage
 
 			if (!ClientPrefs.data.lowQuality)
 			{
-				totallyanoriginalname = new FlxSprite(-20, 200).loadGraphic(Paths.image(PlayState.pathway + 'shading'));
+				totallyanoriginalname = new FlxSprite(-20, 200).loadGraphic(Paths.image(PlayState.pathway + 'delusional/shading'));
 				totallyanoriginalname.scale.set(2,2);
 				totallyanoriginalname.scrollFactor.set(1,1);
 				totallyanoriginalname.visible = false;
@@ -274,7 +283,7 @@ class AbandonedStreet extends BaseStage
 				if (PlayState.SONG.song == "Delusional" || PlayState.SONG.song == 'delusional-anniversary')
 				{
 					heavyRain = new FlxSprite(-550, -900);
-					heavyRain.frames = Paths.getSparrowAtlas(PlayState.pathway + 'heavyRain');
+					heavyRain.frames = Paths.getSparrowAtlas(PlayState.pathway + 'delusional/heavyRain');
 					heavyRain.animation.addByPrefix('god is pissing omg', 'Rain full', 30, true);
 					heavyRain.scale.set(2, 2);
 					heavyRain.antialiasing = ClientPrefs.data.antialiasing;
@@ -289,6 +298,19 @@ class AbandonedStreet extends BaseStage
 			blackBG.alpha=0.001;
 			blackBG.scrollFactor.set(0,0);
 			blackBG.screenCenter();
+
+			tree = new FlxSprite(0,0);
+			tree.frames = Paths.getSparrowAtlas(PlayState.pathway+'delusional/tree');
+			add(tree);
+			tree.animation.addByPrefix('idle', 'frame', 5, true);
+			tree.scale.set(1.8, 1.8);
+			tree.antialiasing = ClientPrefs.data.antialiasing;
+			tree.alpha = 0.0001;
+			tree.animation.play('idle');
+			tree.screenCenter();
+			tree.y += 280;
+			tree.x += 210;
+
 		}
 
 		if (isStoryMode && !seenCutscene)
@@ -414,6 +436,7 @@ class AbandonedStreet extends BaseStage
 				stageFront.y -= 250;
 				stageFront.alpha = 0.001;
 				floor.alpha = 0.001;
+				bg.alpha = 0.001;
 			}
 			game.camBars.fade(0x000000, .0001);
 			// i dont know what caused to Manage Lyrics to happen but, new text for this only ^^
@@ -697,7 +720,7 @@ class AbandonedStreet extends BaseStage
 				var eventData:Float = Std.parseFloat(event.value1);
 				switch (eventData)
 				{
-					case 24: Paths.image(PlayState.pathway + "streetDestroyed");
+					case 24: Paths.image(PlayState.pathway + "delusional/streetDestroyed");
 				}
 		}
 	}
@@ -970,6 +993,7 @@ class AbandonedStreet extends BaseStage
 					case 57:
 						var previousY:Int = Std.int(boyfriend.y);
 						if (blackBG.alpha == 0.001){
+							tree.alpha = 1;
 							blackBG.alpha = 1;
 							boyfriend.y = previousY + 50; 
 							FlxTween.tween(boyfriend, {alpha: 1, y:previousY}, 2.4, {ease: FlxEase.expoOut});
@@ -977,17 +1001,24 @@ class AbandonedStreet extends BaseStage
 
 						} 
 						else {
+							//tree.alpha = 0;
+
 							blackBG.alpha =0;
 						}
 					case 50: // doing ts cause lazy
 						FlxTween.tween(boyfriend, {alpha: 0.001}, 11, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(tree, {alpha: 0.001}, 8,{ease:FlxEase.cubeInOut});
 
 					case 53:
 						dad.alpha = 1; 
 						blackBG.alpha = 0;
+						//tree.alpha = 0;
+
 					case 13:
 						dad.alpha = 1;
 						blackBG.alpha = 0;
+						//tree.alpha = 0;
+
 						game.chromEffect = 0.1;
 						game.boundValue = 0.45;
 						game.drainValue = 0.032;
@@ -1025,6 +1056,7 @@ class AbandonedStreet extends BaseStage
 					case 16:
 						FlxTween.tween(fakeLightOfHope, {alpha: 0.001}, 1.7);
 						FlxTween.tween(floor, {alpha: 1}, 1.7);
+						FlxTween.tween(bg, {alpha: 1}, 1.7, {startDelay:1.75});
 						if (!ClientPrefs.data.lowQuality) FlxTween.tween(stageFront, {alpha: 1}, 1.5);
 					
 					case 17:
@@ -1080,6 +1112,7 @@ class AbandonedStreet extends BaseStage
 							stageFront = null;
 						}
 						floor.visible = false;
+						bg.visible = false;
 						minnieBackground.visible = false; // not gonna be used for this ok
 					case 21:
 						if (!ClientPrefs.data.lowQuality)
@@ -1114,7 +1147,9 @@ class AbandonedStreet extends BaseStage
 							fireThing.visible = true;
 							fireThing.alpha = 0.55;
 						}
-						floor.loadGraphic(Paths.image(PlayState.pathway + "streetDestroyed"));
+						bg.loadGraphic(Paths.image(PlayState.pathway+'delusional/street-bg'));
+						floor.loadGraphic(Paths.image(PlayState.pathway + "delusional/street-delusional"));
+						bg.visible = true;
 						floor.visible = true;
 						fakeLightOfHope.alpha = 0.5;
 						minnieBackground.kill();
@@ -1192,6 +1227,9 @@ class AbandonedStreet extends BaseStage
 						floor.kill();
 						floor.destroy();
 						floor = null;
+						bg.kill();
+						bg.destroy();
+						bg = null;
 						fakeLightOfHope.kill();
 						fakeLightOfHope.destroy();
 						fakeLightOfHope = null;

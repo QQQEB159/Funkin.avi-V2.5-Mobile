@@ -12,8 +12,7 @@ class OptionsState extends MusicBeatState
 		'Preferences',
 		'Graphics',
 		'Gameplay',
-		'Controls',
-		'Note Offsets'
+		'Controls'
 	];
 
 	private static var curSelected:Int = 0;
