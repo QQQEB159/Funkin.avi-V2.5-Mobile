@@ -6,6 +6,10 @@ import flixel.input.gamepad.FlxGamepadInputID;
 
 import states.menus.TitleState;
 
+#if android
+import android.os.Build.VERSION as AndroidVersion;
+#end
+
 // Add a variable here and it will get automatically saved
 @:structInit class SaveVariables {
 	// Mobile and Mobile Controls Releated
@@ -16,7 +20,7 @@ import states.menus.TitleState;
 	public var screensaver:Bool = false;
 	public var wideScreen:Bool = false;
 	#if android
-	public var storageType:String = "EXTERNAL_DATA";
+	public var storageType:String = (AndroidVersion.SDK_INT > 30) ? "EXTERNAL" : "EXTERNAL_DATA";
 	#end
 	public var hitboxType:String = "Gradient";
 	public var downScroll:Bool = false;

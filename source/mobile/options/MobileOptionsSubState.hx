@@ -44,7 +44,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 
 		if (MobileData.mode == 3)
 		{
-			option = new Option('Hitbox Design', 'Choose how your hitbox should look like.', 'hitboxType', 'string', hintOptions);
+			option = new Option('Hitbox Design', 'Choose how your hitbox should look like.', 'hitboxType', 'string', ClientPrefs.data.hitboxType, hintOptions);
 			addOption(option);
 
 			option = new Option('Hitbox Position', 'If checked, the hitbox will be put at the bottom of the screen, otherwise will stay at the top.',
@@ -58,7 +58,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		#if android
-		option = new Option('Storage Type', 'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)', 'storageType', 'string',
+		option = new Option('Storage Type', 'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)', 'storageType', 'string', ClientPrefs.data.storageType,
 			storageTypes);
 		addOption(option);
 		#end

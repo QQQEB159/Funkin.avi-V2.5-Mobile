@@ -137,6 +137,8 @@ class LegacyMenuState extends MusicBeatState
 		"women.",
 		"men."
 	];
+	
+	var keyboard:FlxSprite;
 
 	override function create()
 	{
@@ -372,6 +374,15 @@ class LegacyMenuState extends MusicBeatState
 		scratchStuff.cameras = [camFilter];
 		grain.cameras = [camFilter];
 
+		keyboard = new FlxSprite(600, 20);
+    	keyboard.loadGraphic(Paths.image('keyboard', 'mobile'));
+    	keyboard.scale.set(0.4, 0.4);
+    	keyboard.updateHitbox();
+    	keyboard.cameras = [camFilter];
+    	add(keyboard);
+    	
+    	FlxG.stage.window.onTextInput.add(handleCode);
+		
 		super.create();
 
 		defaultShader2 = new FlxRuntimeShader(Shaders.monitorFilter, null, 100);
@@ -385,8 +396,56 @@ class LegacyMenuState extends MusicBeatState
 		
 		addTouchPad("UP_DOWN", "A_B");
 		addTouchPadCamera();
-}
+    }
 
+	final code:Array<String> = ["210322", "7", "qqqeb"];
+    var curCode:String = '';
+    function handleCode(str:String)
+    {
+    	curCode += str.toLowerCase();
+    	
+    	if (curCode == code[0])
+    	{
+    		if (!selectedSomethin && GameData.birthdayLocky != "uninvited")
+    		    if (GameData.birthdayLocky == "obtained" || GameData.birthdayLocky == "beaten")
+					{
+						FlxG.sound.play(Paths.sound('cancelMenu'));
+						switch(howmuchyoufuckinkeptdoingit) {
+							case 0: messenger.sendMessage('You\'ve already unlocked this song!', 'Go to freeplay to play the song.');
+							case 1: messenger.sendMessage('Can\'t you understand?', 'You already unlocked the song.');
+							case 2: messenger.sendMessage('Can\'t you read?', 'This. Is. Already. Unlocked.');
+							case 3: messenger.sendMessage('go to freeplay menu.', 'its already unlocked.');
+							case 4: messenger.sendMessage('IF YOU KEEP DOING IT THEN', 'IM GONNA DO SOMETHING BAD');
+							case 5:
+								messenger.sendMessage('...', 'Im closing the game. Fuck you');
+								new FlxTimer().start(2, function(tmr:FlxTimer){
+									System.exit(0);
+								});
+						}
+						howmuchyoufuckinkeptdoingit++;
+					}
+					else
+					{
+						GameData.birthdayLocky = 'obtained';
+						FlxG.sound.play(Paths.sound('funkinAVI/easterEggSound'));
+						messenger.sendMessage('Something has unlocked!', 'Check freeplay to see what has been unlocked.');
+					}
+    		curCode = '';
+    	}
+    	else if (curCode == code[1])
+    	{
+    		FlxG.sound.play(Paths.sound('cancelMenu'));
+			messenger.sendMessage('ACCESS DENIED!', 'Perhaps there is a code to access this?');
+    		curCode = '';
+    	}
+    	else if (curCode == code[2])
+    	{
+    		GameData.unlockEverything();
+			FlxG.sound.play(Paths.sound('funkinAVI/easterEggSound'));
+    		curCode = '';
+    	}
+    }
+	
 	var selectedSomethin:Bool = false;
 
 	override function update(elapsed:Float)
@@ -586,6 +645,12 @@ class LegacyMenuState extends MusicBeatState
 					MusicBeatState.switchState(new FreeplayState());
 				}
 			}
+			
+			if (keyboard != null && TouchUtil.overlaps(keyboard) && TouchUtil.justPressed)
+        	{
+                FlxG.stage.window.textInputEnabled = true;
+        		curCode = '';
+        	}
 		}
 
 		super.update(elapsed);
@@ -617,5 +682,11 @@ class LegacyMenuState extends MusicBeatState
 				spr.centerOffsets();
 			}
 		});
+	}
+	
+	override function destroy() {
+		super.destroy();
+
+		FlxG.stage.window.onTextInput.remove(handleCode);
 	}
 }

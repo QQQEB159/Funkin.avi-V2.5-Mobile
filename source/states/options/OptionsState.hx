@@ -125,7 +125,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 		controls.isInSubstate = false;
 		removeTouchPad();
-		addTouchPad("UP_DOWN", "A_B_X_Y");
+		addTouchPad("LEFT_RIGHT", "A_B_X_Y");
 	}
 
 	override function update(elapsed:Float)

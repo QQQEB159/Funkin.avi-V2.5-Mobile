@@ -105,6 +105,7 @@ class MainMenuState extends MusicBeatState
 		"Blame Goober for making me delusional",
 		"Fun fact: away3d is a library that makes our mod work, deleting it would result on us not being to compile no more" // change if needed.
 	];
+    var keyboard:FlxSprite;
 
 	override function create()
 	{
@@ -272,6 +273,16 @@ class MainMenuState extends MusicBeatState
 		FlxG.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 
 		changeSelection(0);
+		
+		keyboard = new FlxSprite(600, 20);
+    	keyboard.loadGraphic(Paths.image('keyboard', 'mobile'));
+    	keyboard.scale.set(0.4, 0.4);
+    	keyboard.updateHitbox();
+    	keyboard.cameras = [camHUD];
+    	add(keyboard);
+    	
+    	FlxG.stage.window.onTextInput.add(handleCode);
+		
 		super.create();
 
 		FlxG.mouse.load(Paths.image('favi/ui/Cursor').bitmap);
@@ -280,6 +291,54 @@ class MainMenuState extends MusicBeatState
 			FlxG.mouse.visible = true;
 	}
 
+	final code:Array<String> = ["r", "qqqeb", "4", "7", "8", "9", "210322"];
+    var curCode:String = '';
+    function handleCode(str:String)
+    {
+    	curCode += str.toLowerCase();
+    	
+    	if (curCode == code[0])
+    	{
+    		coolMenuEvents(1);
+    		curCode = '';
+    	}
+    	else if (curCode == code[1])
+    	{
+    		GameData.unlockEverything();
+			FlxG.sound.play(Paths.sound('funkinAVI/easterEggSound'));
+    		curCode = '';
+    	}
+    	else if (curCode == code[2])
+    	{
+    		MusicBeatState.switchState(new AskQuestionToThatGuy());
+    		curCode = '';
+    	}
+    	else if (curCode == code[3])
+    	{
+    		FlxG.sound.play(Paths.sound('cancelMenu'));
+			messenger.sendMessage('ACCESS DENIED!', 'Perhaps there is a code to access this?');
+    		curCode = '';
+    	}
+    	
+    	else if (curCode == code[4])
+    	{
+    		MusicBeatState.switchState(new CutsceneState());
+    		curCode = '';
+    	}
+    	else if (curCode == code[5])
+    	{
+    		goingToBrainrot = true;
+			MusicBeatState.switchState(new Brainrot());
+			FlxG.sound.music.fadeOut(0.5);
+    		curCode = '';
+    	}
+    	else if (curCode == code[6])
+    	{
+    		if (!selectedSomethin && GameData.birthdayLocky != "uninvited") coolMenuEvents(5);
+    		curCode = '';
+    	}
+    }
+	
 	var goingToBrainrot:Bool = false;
 	override function update(elapsed:Float)
 	{
@@ -411,7 +470,14 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+			
+			if (keyboard != null && TouchUtil.overlaps(keyboard) && TouchUtil.justPressed)
+        	{
+                FlxG.stage.window.textInputEnabled = true;
+        		curCode = '';
+        	}
 		}
+		
 		super.update(elapsed);
 	}
 
@@ -419,6 +485,7 @@ class MainMenuState extends MusicBeatState
 		super.destroy();
 
 		FlxG.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		FlxG.stage.window.onTextInput.remove(handleCode);
 	}
 
 	function changeSelection(selection:Int)

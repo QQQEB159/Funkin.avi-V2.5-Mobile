@@ -417,6 +417,8 @@ class Episode1Death extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiArrowDown.alpha = FlxMath.lerp(arrowLerp, uiArrowDown.alpha, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
@@ -602,6 +604,8 @@ class DelusionalDeath extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiArrowDown.alpha = FlxMath.lerp(arrowLerp, uiArrowDown.alpha, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
@@ -782,6 +786,8 @@ class EpicFailLmao extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		tryAgain.alpha = FlxMath.lerp(tryLerp, tryAgain.alpha, CoolUtil.boundTo(1 - (elapsed * 15), 0, 1));
 		quit.alpha = FlxMath.lerp(quitLerp, quit.alpha, CoolUtil.boundTo(1 - (elapsed * 15), 0, 1));
 		deathHUD.alpha = FlxMath.lerp(camLerpBullshit, deathHUD.alpha, CoolUtil.boundTo(1 - (elapsed * 11), 0, 1));
@@ -1000,6 +1006,8 @@ class EverettBaseDeath extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiArrowDown.alpha = FlxMath.lerp(arrowLerp, uiArrowDown.alpha, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
@@ -1172,6 +1180,8 @@ class WarGameOver extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiArrowDown.alpha = FlxMath.lerp(arrowLerp, uiArrowDown.alpha, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
@@ -1334,6 +1344,8 @@ class WompWompSadMan extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 
@@ -1477,6 +1489,8 @@ class MalsquareDeath extends MusicBeatSubstate {
 
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		
 		uiRetry.alpha = FlxMath.lerp(tryLerp, uiRetry.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 		uiLeave.alpha = FlxMath.lerp(quitLerp, uiLeave.alpha, CoolUtil.boundTo(1 - (elapsed * 8), 0, 1));
 

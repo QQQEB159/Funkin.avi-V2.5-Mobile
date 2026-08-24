@@ -22,8 +22,6 @@ class BlendEffect {
 class BlendEffectShader extends FlxShader {
     @:glFragmentSource('
     #pragma header
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 uv = openfl_TextureCoordv.xy;
 
     uniform int blendMode;
 
@@ -146,6 +144,7 @@ class BlendEffectShader extends FlxShader {
     }
 
     void main() {
+        vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
         vec2 uv = fragCoord.xy / openfl_TextureSize.xy;
         
         vec3 upperTexture = flixel_texture2D(bitmap, uv).xyz;

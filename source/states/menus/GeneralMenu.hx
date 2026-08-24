@@ -43,6 +43,7 @@ class GeneralMenu extends MusicBeatState {
 	];
 
     private static var curSelected:Int = 0;
+    private var allowInputs:Bool = true;;
     
     override function create() 
     {
@@ -175,14 +176,14 @@ class GeneralMenu extends MusicBeatState {
 		if (!FlxG.mouse.visible)
 			FlxG.mouse.visible = true;
 			
-		addTouchPad("NONE", "B");
+		addTouchPad("LEFT_RIGHT", "A_B");
 		addTouchPadCamera();
     }
 
     override function update(elapsed:Float) {
         super.update(elapsed);
 
-        if (FlxG.mouse.overlaps(itemGroup))
+        /*if (FlxG.mouse.overlaps(itemGroup))
         {
             itemGroup.forEachAlive(function(item:FlxSprite) {
                 if (curSelected != item.ID && FlxG.mouse.overlaps(item))
@@ -195,8 +196,19 @@ class GeneralMenu extends MusicBeatState {
                     selectItem(curSelected);
                 }
             });
-        }
+        }*/
         
+		if (!allowInputs) return;
+		
+		if (controls.UI_LEFT_P) {
+            changeItem(-1);
+            allowInputs = false;
+        }
+        if (controls.UI_RIGHT_P) {
+            changeItem(1);
+            allowInputs = false;
+        }
+		
 		if (controls.BACK) {
             Conductor.bpm = 50;
 			FreeplayState.songInstPlaying = false;
@@ -211,7 +223,13 @@ class GeneralMenu extends MusicBeatState {
 				MusicBeatState.switchState(new MainMenuState());
 			    FlxG.sound.playMusic(Paths.music('aviOST/rottenPetals'));
             }
+            allowInputs = false;
 		}
+		
+		if (controls.ACCEPT) {
+            selectItem(curSelected);
+            allowInputs = false;
+        }
     }
 
     function selectItem(id:Int) {
@@ -220,6 +238,13 @@ class GeneralMenu extends MusicBeatState {
 		MusicBeatState.switchState(new FreeplayState());
     }
 
+    function changeItem(change:Int = 0) {
+        if (change != 0) {
+            curSelected = flixel.math.FlxMath.wrap(curSelected + change, 0, item.length - 1);
+        }
+        updateSelection();
+    }
+    
     function updateSelection() {
         for (i in 0...item.length) {
             var spr:FlxSprite = itemGroup.members[i];
