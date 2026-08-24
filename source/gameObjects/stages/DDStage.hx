@@ -73,6 +73,8 @@ class DDStage extends BaseStage
 
 		lightingSound = new FlxSound();
 		FlxG.sound.list.add(lightingSound);
+		
+		//PlayState.qqqeb = true;
 	}
 
 	override function createPost()

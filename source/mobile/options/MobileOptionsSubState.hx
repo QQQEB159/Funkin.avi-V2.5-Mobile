@@ -2,7 +2,6 @@ package mobile.options;
 
 import flixel.input.keyboard.FlxKey;
 import states.options.BaseOptionsMenu;
-import states.options.Option;
 
 class MobileOptionsSubState extends BaseOptionsMenu
 {

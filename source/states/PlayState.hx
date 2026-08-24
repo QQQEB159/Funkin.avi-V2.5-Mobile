@@ -430,7 +430,9 @@ class PlayState extends MusicBeatState
 	var subtitles:SubtitlesBox;
 	var subtitleTwnHandler:Array<FlxTween> = [];
 	var iconHandler:Array<FlxTween> = [];
-	public var malThing:FlxCamera; 
+	public var malThing:FlxCamera;
+	
+	public static var qqqeb:Bool = false;
 
 	override public function create()
 	{
@@ -1210,6 +1212,13 @@ class PlayState extends MusicBeatState
 		mobileControls.instance.visible = false;
 		mobileControls.onButtonDown.add(onButtonPress);
 		mobileControls.onButtonUp.add(onButtonRelease);
+		
+		switch (curStage)
+		{
+			case "waltRoom": setMobileControlsColor(0xFFFDD577, 0xFFFDD577, 0xFFFDD577, 0xFFFDD577);
+		    case "menuSongs": setMobileControlsColor(0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF);
+			default: if (isGreyscale) setMobileControlsColor(0xFF505050, 0xFF747474, 0xFFA2A2A2, 0xFF1D1D1D);
+		}
 		
 		startCallback();
 		RecalculateRating();
@@ -5700,6 +5709,7 @@ class PlayState extends MusicBeatState
 		spawnShadow[0] = spawnShadow[1] = spawnShadow[2] = false;
 		instance = null;
 		super.destroy();
+		qqqeb = false;
 	}
 
 	var lastStepHit:Int = -1;
@@ -5987,5 +5997,16 @@ class PlayState extends MusicBeatState
 		setOnScripts('rating', ratingPercent);
 		setOnScripts('ratingName', ratingName);
 		setOnScripts('ratingFC', ratingFC);
+	}
+	
+	public function setMobileControlsColor(a:Int, b:Int, c:Int, d:Int)
+	{
+	    if (mobileControls.instance != null)
+	    {
+    	    mobileControls.buttonLeft.color = a;
+            mobileControls.buttonDown.color = b;
+            mobileControls.buttonUp.color = c;
+            mobileControls.buttonRight.color = d;
+        }
 	}
 }

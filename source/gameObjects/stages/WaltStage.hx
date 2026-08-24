@@ -71,6 +71,8 @@ class WaltStage extends BaseStage
 	override function create()
 	{
 		game.defaultCamZoom = 0.75;
+		
+		if (ClientPrefs.data.mechanics) PlayState.qqqeb = true;
 	
 		if (PlayState.SONG.song == 'Mercy')
 		{
@@ -276,7 +278,7 @@ class WaltStage extends BaseStage
 
 		if (!game.cpuControlled)
 		{
-			if (FlxG.keys.justPressed.SPACE)
+			if (FlxG.keys.justPressed.SPACE || MusicBeatState.getState().mobileControls.buttonExtra.justPressed)
 			{
 				switch (PlayState.curStage)
 				{

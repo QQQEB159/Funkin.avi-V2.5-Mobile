@@ -136,6 +136,8 @@ class Apartment extends BaseStage
 		staticg.cameras = [game.camOther];
 		game.camGame.pixelPerfectRender = true;
 		camGame.pixelPerfectRender = true;
+		
+		if (ClientPrefs.data.mechanics) PlayState.qqqeb = true;
 	}
 
 	override function createPost()
@@ -228,7 +230,7 @@ class Apartment extends BaseStage
 	{
 		if (!game.cpuControlled)
 		{
-			if (FlxG.keys.justPressed.SPACE)
+			if (FlxG.keys.justPressed.SPACE || MusicBeatState.getState().mobileControls.buttonExtra.justPressed)
 			{
 				switch (PlayState.SONG.song)
 				{

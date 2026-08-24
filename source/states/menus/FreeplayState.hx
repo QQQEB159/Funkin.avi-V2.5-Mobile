@@ -185,6 +185,9 @@ class FreeplayState extends MusicBeatState
 		confirmSound = new FlxSound();
 		if (freeplayMenuList != 2) confirmSound.loadEmbedded(Paths.sound('funkinAVI/menu/confirmEpisode'));
 
+		addTouchPad("LEFT_FULL", "A_B_C_X_Y_Z");
+		addTouchPadCamera();
+		
 		super.create();
 
         persistentUpdate = true;
@@ -208,7 +211,7 @@ class FreeplayState extends MusicBeatState
 		if (disc != null && songInstPlaying) 
 			disc.angle += Conductor.crochet / 1000 * 2;
 
-		if (FlxG.keys.justPressed.B && !selectedSomethin)
+		if ((FlxG.keys.justPressed.B || touchPad != null && touchPad.buttonZ.justPressed) && !selectedSomethin)
 			changeBotPlay();
 
         super.update(elapsed);
@@ -245,11 +248,11 @@ class FreeplayState extends MusicBeatState
 		var upP = freeplayMenuList == 2 ? controls.UI_UP_P : controls.UI_LEFT_P;
 		var downP = freeplayMenuList == 2 ? controls.UI_DOWN_P : controls.UI_RIGHT_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
-		var ctrl = FlxG.keys.justPressed.CONTROL;
+		var space = (FlxG.keys.justPressed.SPACE || touchPad != null && touchPad.buttonX.justPressed);
+		var ctrl = (FlxG.keys.justPressed.CONTROL || touchPad != null && touchPad.buttonC.justPressed);
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT || touchPad != null && touchPad.buttonZ.pressed) shiftMult = 3;
 
 		if (!selectedSomethin)
 		{
@@ -470,11 +473,12 @@ class FreeplayState extends MusicBeatState
 				}
 				FlxG.sound.music.volume = 0;
 			}
-			else if(controls.RESET && !player.playingMusic)
+			else if((controls.RESET || touchPad != null && touchPad.buttonY.justPressed) && !player.playingMusic)
 			{
 				persistentUpdate = false;
 				openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 				FlxG.sound.play(Paths.sound('funkinAVI/menu/scrollSfx'));
+				removeTouchPad();
 			}
 		}
 	}
@@ -1036,6 +1040,9 @@ class FreeplayState extends MusicBeatState
 		changeSelection(0, false);
 		persistentUpdate = true;
 		super.closeSubState();
+		removeTouchPad();
+		addTouchPad("LEFT_FULL", "A_B_C_X_Y_Z");
+		addTouchPadCamera();
 	}
 }
 
