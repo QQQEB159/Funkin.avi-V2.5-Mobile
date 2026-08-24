@@ -165,6 +165,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		
+		addTouchPad("UP_DOWN", "A");
+		addTouchPadCamera();
 	}
 
 	var holdTime:Float = 0;
@@ -698,6 +701,9 @@ class FAVIPauseSubState extends MusicBeatSubstate
 			changeSelection();
 			lime.app.Application.current.window.title += " - {Paused}";
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+			
+			addTouchPad("UP_DOWN", "A");
+		    addTouchPadCamera();
 		}
 	
 		var arrowX:Float = 0;
@@ -1145,6 +1151,9 @@ class PauseManiaSubstate extends MusicBeatSubstate
 			changeSelection();
 			lime.app.Application.current.window.title += " - {Paused}";
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+			
+			addTouchPad("UP_DOWN", "A");
+		    addTouchPadCamera();
 		}
 
 		override function update(elapsed:Float)

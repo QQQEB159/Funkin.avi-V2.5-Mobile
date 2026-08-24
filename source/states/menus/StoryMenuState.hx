@@ -148,6 +148,9 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 		updateText();
+		
+		addTouchPad("NONE", "A_B");
+		addTouchPadCamera();
 	}
 
 	inline function checkProgression(week:String):Bool

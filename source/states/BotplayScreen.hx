@@ -92,6 +92,9 @@ class BotplayScreen extends MusicBeatState {
                 }});
             }});
         }});
+        
+        addTouchPad("NONE", "Y_N");
+		addTouchPadCamera();
     }
 
     override function update(elapsed:Float) {
@@ -100,17 +103,17 @@ class BotplayScreen extends MusicBeatState {
         if (finishedIntro)
         {
             // gonna be honest, this could've been done SO MUCH MORE SIMPLER if Flixel wasn't retarded as fuck
-            if (FlxG.keys.justPressed.Y)
+            if (FlxG.keys.justPressed.Y || touchPad.buttonY.justPressed)
                 FlxTween.tween(stupidGraphic, {alpha: 1}, 3, {onComplete: function(twn:FlxTween)
                 {
                     GameData.overrideBotplay();
                 }});
-            if(FlxG.keys.justPressed.N)
+            if(FlxG.keys.justPressed.N || touchPad.buttonN.justPressed)
                 FlxTween.tween(stupidGraphic, {alpha: 1}, 3, {onComplete: function(twn:FlxTween)
                 {
                     MusicBeatState.switchState(new PlayState());
                 }});
-            if (FlxG.keys.justPressed.Y || FlxG.keys.justPressed.N)
+            if ((FlxG.keys.justPressed.Y || touchPad.buttonY.justPressed) || (FlxG.keys.justPressed.N || touchPad.buttonN.justPressed))
             {
                 FlxG.sound.play(Paths.sound('funkinAVI/menu/confirmEpisode'));
                 FlxG.camera.zoom += 0.12;

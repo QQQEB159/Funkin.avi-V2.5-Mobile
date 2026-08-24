@@ -299,7 +299,7 @@ class MainMenuState extends MusicBeatState
 			}
 		});
 
-		if (!sys.FileSystem.exists('./assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
+		if (!sys.FileSystem.exists('assets/shared/images/favi/stages/forbiddenRealm/DO NOT TOUCH MY MEME.png') && GameData.check(NO_MALFUNCTION))
 			coolMenuEvents(2);
 
 		if (FlxG.keys.justPressed.R)
@@ -405,7 +405,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new Brainrot());
 				FlxG.sound.music.fadeOut(0.5);
 			}	
-			if (controls.BACK)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));

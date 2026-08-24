@@ -66,6 +66,9 @@ class BaseGameOver extends MusicBeatSubstate {
 		PlayState.instance.setOnScripts('inGameOver', true);
 		PlayState.instance.callOnScripts('onGameOverStart', []);
 
+		addTouchPad("NONE", "A_B");
+		addTouchPadCamera();
+		
 		super.create();
 	}
 
@@ -255,6 +258,9 @@ class ManiaLoseScreen extends MusicBeatSubstate {
 
 		cameras = [PlayState.instance.camOther];
 
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
+		
 		super.create();
 	}
 
@@ -404,6 +410,9 @@ class Episode1Death extends MusicBeatSubstate {
 			scratch.scrollFactor.set(0, 0);
 			add(scratch);
 		}
+		
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -586,6 +595,9 @@ class DelusionalDeath extends MusicBeatSubstate {
 			scratch.scrollFactor.set(0, 0);
 			add(scratch);
 		}
+		
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -763,6 +775,9 @@ class EpicFailLmao extends MusicBeatSubstate {
 		});
 
 		super.create();
+		
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -978,6 +993,9 @@ class EverettBaseDeath extends MusicBeatSubstate {
 			scratch.scrollFactor.set(0, 0);
 			add(scratch);
 		}
+		
+		addTouchPad("UP_DOWN", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -1147,6 +1165,9 @@ class WarGameOver extends MusicBeatSubstate {
 			scratch.scrollFactor.set(0, 0);
 			add(scratch);
 		}
+		
+		addTouchPad("UP_DOWN", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -1306,6 +1327,9 @@ class WompWompSadMan extends MusicBeatSubstate {
 			scratch.scrollFactor.set(0, 0);
 			add(scratch);
 		}
+		
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -1445,6 +1469,9 @@ class MalsquareDeath extends MusicBeatSubstate {
 			tryLerp = 1;
 		});
 
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
+		
 		super.create();
 	}
 
@@ -1622,6 +1649,9 @@ class MalsquareTrollScreen extends MusicBeatSubstate {
 			FlxTween.tween(tiles, {alpha: 0.65}, 1);
 			FlxTween.tween(bg, {angle: 360}, 4.5, {type: LOOPING});
 		});
+		
+		addTouchPad("LEFT_RIGHT", "A");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)

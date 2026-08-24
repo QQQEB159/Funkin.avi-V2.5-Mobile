@@ -56,6 +56,9 @@ class ChangelogMenu extends MusicBeatSubstate
             canScroll = true;
 
         super.create();
+        
+        addTouchPad("UP_DOWN", "B");
+		addTouchPadCamera();
     }
 
     override function update(elapsed:Float)

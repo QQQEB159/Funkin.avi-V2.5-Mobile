@@ -21,6 +21,7 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String)
 	{
+		removeTouchPad();
 		switch (label)
 		{
 			case 'Note Colors':
@@ -112,6 +113,8 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
+		addTouchPad("LEFT_RIGHT", "A_B_X_Y");
+		
 		super.create();
 	}
 
@@ -119,6 +122,9 @@ class OptionsState extends MusicBeatState
 	{
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		controls.isInSubstate = false;
+		removeTouchPad();
+		addTouchPad("UP_DOWN", "A_B_X_Y");
 	}
 
 	override function update(elapsed:Float)
@@ -134,13 +140,13 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (FlxG.mouse.justPressed)
+		/*if (FlxG.mouse.justPressed)
 		{
 			if (FlxG.mouse.overlaps(art))
 			{
 				openSelectedSubstate(options[curSelected]);
 			}
-		}
+		}*/
 
 		if (controls.BACK)
 		{
@@ -166,6 +172,17 @@ class OptionsState extends MusicBeatState
 		if (controls.ACCEPT)
 		{
 			openSelectedSubstate(options[curSelected]);
+		}
+		
+		if (touchPad != null && touchPad.buttonX.justPressed || FlxG.keys.justPressed.CONTROL && controls.mobileC)
+		{
+			removeTouchPad();
+			openSubState(new MobileControlSelectSubState());
+		}
+		else if (touchPad != null && touchPad.buttonY.justPressed)
+		{
+			removeTouchPad();
+			openSubState(new mobile.options.MobileOptionsSubState());
 		}
 	}
 

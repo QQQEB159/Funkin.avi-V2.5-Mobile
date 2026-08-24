@@ -174,6 +174,9 @@ class GeneralMenu extends MusicBeatState {
 
 		if (!FlxG.mouse.visible)
 			FlxG.mouse.visible = true;
+			
+		addTouchPad("NONE", "B");
+		addTouchPadCamera();
     }
 
     override function update(elapsed:Float) {

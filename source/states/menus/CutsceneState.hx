@@ -124,6 +124,9 @@ class CutsceneState extends MusicBeatState
 
         FlxG.mouse.load(Paths.image('favi/ui/Cursor').bitmap);
 		FlxG.mouse.visible = true;
+		
+		addTouchPad("NONE", "A_B");
+		addTouchPadCamera();
     }
 
     override function update(elapsed:Float)
@@ -170,7 +173,7 @@ class CutsceneState extends MusicBeatState
                 FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
             }
             
-            if (FlxG.keys.justPressed.SPACE)
+            if (FlxG.keys.justPressed.SPACE || touchPad.buttonA.justPressed)
             {
                 pauseIcon.visible = !pauseIcon.visible;
                 if (pauseIcon.visible)

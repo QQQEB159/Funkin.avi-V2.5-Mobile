@@ -186,6 +186,9 @@ class CreditsState extends MusicBeatState
 
 		changeSelection();
 		super.create();
+		
+		addTouchPad("UP_DOWN", "B");
+		addTouchPadCamera();
 	}
 
 	var shaderTime:Float = 0;

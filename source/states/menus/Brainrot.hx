@@ -28,6 +28,9 @@ class Brainrot extends MusicBeatState
 		gameplay.y -= 150;
 		gameplay.scale.y = gameplay.scale.y / 2;
 		add(gameplay);
+		
+		addTouchPad("NONE", "B");
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)

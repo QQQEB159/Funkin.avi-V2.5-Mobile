@@ -118,6 +118,8 @@ class ControlsSubState extends MusicBeatSubstate
 		controlsTxt.setFormat(Paths.font("disneyFreeplayFont.ttf"), 25, FlxColor.fromRGB(255, 255, 255, Std.int(255 * .5)), CENTER, OUTLINE, FlxColor.BLACK);
 		controlsTxt.screenCenter(X);
 		add(controlsTxt);
+		
+		addTouchPad("NONE", "B");
 	}
 
 	var lastID:Int = 0;
@@ -261,7 +263,7 @@ class ControlsSubState extends MusicBeatSubstate
 
 		if(!binding)
 		{
-			if(FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B))
+			if(controls.BACK || FlxG.gamepads.anyJustPressed(B))
 			{
 				close();
 				return;

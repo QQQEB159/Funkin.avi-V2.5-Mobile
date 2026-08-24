@@ -28,6 +28,8 @@ class FlashingState extends MusicBeatState
 
 		for (i in [fog, bg, sign, warnText, vignette])
 			add(i);
+			
+		addTouchPad("NONE", "A");
 	}
 
 	override function update(elapsed:Float)

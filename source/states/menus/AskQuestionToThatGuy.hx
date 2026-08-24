@@ -168,6 +168,9 @@ class AskQuestionToThatGuy extends MusicBeatState
 
         FlxG.camera.follow(camFollowPos, null, 1);
         FlxG.sound.playMusic(Paths.music('aviOST/muchABlige'));
+        
+        addTouchPad("NONE", "A_B");
+		addTouchPadCamera();
     }
 
     override function update(elapsed:Float) {
@@ -182,7 +185,7 @@ class AskQuestionToThatGuy extends MusicBeatState
         if (FlxG.keys.justPressed.F5)
             FlxG.resetState(); // offset related
 
-        if (FlxG.keys.justPressed.ENTER)
+        if (FlxG.keys.justPressed.ENTER || touchPad.buttonA.justPressed)
         {
             askQuestion(box.text);
         }
