@@ -202,11 +202,11 @@ class GeneralMenu extends MusicBeatState {
 		
 		if (controls.UI_LEFT_P) {
             changeItem(-1);
-            allowInputs = false;
+            //allowInputs = false;
         }
         if (controls.UI_RIGHT_P) {
             changeItem(1);
-            allowInputs = false;
+            //allowInputs = false;
         }
 		
 		if (controls.BACK) {

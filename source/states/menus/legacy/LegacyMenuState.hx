@@ -374,7 +374,7 @@ class LegacyMenuState extends MusicBeatState
 		scratchStuff.cameras = [camFilter];
 		grain.cameras = [camFilter];
 
-		keyboard = new FlxSprite(600, 20);
+		keyboard = new FlxSprite(1100, 20);
     	keyboard.loadGraphic(Paths.image('keyboard', 'mobile'));
     	keyboard.scale.set(0.4, 0.4);
     	keyboard.updateHitbox();
@@ -396,6 +396,8 @@ class LegacyMenuState extends MusicBeatState
 		
 		addTouchPad("UP_DOWN", "A_B");
 		addTouchPadCamera();
+		
+		FlxG.sound.muteKeys = null;
     }
 
 	final code:Array<String> = ["210322", "7", "qqqeb"];
@@ -688,5 +690,7 @@ class LegacyMenuState extends MusicBeatState
 		super.destroy();
 
 		FlxG.stage.window.onTextInput.remove(handleCode);
+		FlxG.stage.window.textInputEnabled = false;
+		FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
 	}
 }

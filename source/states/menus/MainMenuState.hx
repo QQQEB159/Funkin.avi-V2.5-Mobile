@@ -274,7 +274,7 @@ class MainMenuState extends MusicBeatState
 
 		changeSelection(0);
 		
-		keyboard = new FlxSprite(600, 20);
+		keyboard = new FlxSprite(1100, 20);
     	keyboard.loadGraphic(Paths.image('keyboard', 'mobile'));
     	keyboard.scale.set(0.4, 0.4);
     	keyboard.updateHitbox();
@@ -289,6 +289,8 @@ class MainMenuState extends MusicBeatState
 
 		if (!FlxG.mouse.visible)
 			FlxG.mouse.visible = true;
+			
+		FlxG.sound.muteKeys = null;
 	}
 
 	final code:Array<String> = ["r", "qqqeb", "4", "7", "8", "9", "210322"];
@@ -334,6 +336,7 @@ class MainMenuState extends MusicBeatState
     	}
     	else if (curCode == code[6])
     	{
+    		FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
     		if (!selectedSomethin && GameData.birthdayLocky != "uninvited") coolMenuEvents(5);
     		curCode = '';
     	}
@@ -486,6 +489,8 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		FlxG.stage.window.onTextInput.remove(handleCode);
+		FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
+		FlxG.stage.window.textInputEnabled = false;
 	}
 
 	function changeSelection(selection:Int)
