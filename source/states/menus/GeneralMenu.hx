@@ -43,7 +43,7 @@ class GeneralMenu extends MusicBeatState {
 	];
 
     private static var curSelected:Int = 0;
-    private var allowInputs:Bool = true;;
+    private var allowInputs:Bool = true;
     
     override function create() 
     {

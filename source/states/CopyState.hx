@@ -9,6 +9,7 @@ import openfl.utils.ByteArray;
 import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
 import lime.system.ThreadPool;
+import haxe.io.Path;
 
 /**
  * ...
