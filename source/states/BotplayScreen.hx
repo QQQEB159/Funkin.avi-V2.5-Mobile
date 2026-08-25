@@ -118,7 +118,7 @@ class BotplayScreen extends MusicBeatState {
                 FlxG.sound.play(Paths.sound('funkinAVI/menu/confirmEpisode'));
                 FlxG.camera.zoom += 0.12;
                 FlxTween.tween(FlxG.camera, {zoom: 1}, 1.2, {ease: FlxEase.expoOut});
-                if (FlxG.keys.justPressed.Y)
+                if (FlxG.keys.justPressed.Y || touchPad.buttonY.justPressed)
                 {
                     flashy[0].alpha = 1;
                     FlxTween.tween(flashy[0], {alpha: 0}, 2.5, {ease: FlxEase.expoOut});
